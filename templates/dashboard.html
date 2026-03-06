@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exam Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    min-height: 100vh;
+}
+
+/* ===== Navbar ===== */
+
+.navbar {
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.navbar h2 {
+    letter-spacing: 1px;
+}
+
+.user {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* ===== Hero Section ===== */
+
+.hero {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.hero h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    opacity: 0.8;
+}
+
+/* ===== Main Cards ===== */
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 60px auto;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+/* Glass Card */
+
+.card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    padding: 35px;
+    width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    transition: 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* Progress Bar */
+
+.progress {
+    background: rgba(255,255,255,0.2);
+    height: 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.green { background: linear-gradient(90deg, #00c6ff, #0072ff); width: 84%; }
+.blue { background: linear-gradient(90deg, #56ab2f, #a8e063); width: 78%; }
+.purple { background: linear-gradient(90deg, #c471f5, #fa71cd); width: 90%; }
+
+/* Buttons */
+
+.btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Bottom Stats */
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px 0 60px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 18px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.stat-card h4 {
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.stat-card span {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+</style>
+</head>
+<body>
+
+<div class="navbar">
+    <h2>National Testing Dashboard</h2>
+    <div class="user">Hello, {{ session['user'] if session.get('user') else 'Student' }}</div>
+</div>
+
+<div class="hero">
+    <h1>Welcome to Your Exam Dashboard</h1>
+    <p>Manage your exam progress and track your performance</p>
+</div>
+
+<div class="container">
+
+    <!-- Exam Details -->
+    <div class="card">
+        <h3>Exam Details</h3>
+        <p>Total Questions: <b>150</b></p>
+        <p>Subjects: Physics, Chemistry, Mathematics</p>
+        <p>Level: JEE / CET</p>
+        <p>Total Marks: 600</p>
+
+        <form action="/exam">
+            <button class="btn">Start Examination</button>
+        </form>
+    </div>
+
+    <!-- Previous Performance -->
+    <div class="card">
+        <h3>Previous Performance</h3>
+
+        <p>Physics: 42 / 50</p>
+        <div class="progress"><div class="progress-bar green"></div></div>
+
+        <p>Chemistry: 39 / 50</p>
+        <div class="progress"><div class="progress-bar blue"></div></div>
+
+        <p>Mathematics: 45 / 50</p>
+        <div class="progress"><div class="progress-bar purple"></div></div>
+
+        <p style="margin-top:15px;"><b>Total: 126 / 150</b></p>
+
+        <button class="btn">View Detailed Report</button>
+    </div>
+
+</div>
+
+<!-- Bottom Stats -->
+<div class="stats">
+
+    <div class="stat-card">
+        <h4>Accuracy</h4>
+        <span>84%</span>
+    </div>
+
+    <div class="stat-card">
+        <h4>Exam Attempts</h4>
+        <span>3</span>
+    </div>
+
+    <div class="stat-card">
+        <h4>Time Spent</h4>
+        <span>6h 45m</span>
+    </div>
+
+</div>
+
+</body>
+</html>
