@@ -7,7 +7,7 @@ questions = {
         },
         {
             "question": "Which gas is produced when zinc reacts with dilute HCl?",
-            "options": ["Oxygen", "Hydrogen", "Chlorine", "Nitrogen"],
+            "options": ["Oxygen", "Hydrogen", "Sulphur", "Nitrogen"],
             "answer": "Hydrogen"
         },
         {
