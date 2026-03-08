@@ -4,11 +4,9 @@
 <meta charset="UTF-8">
 <title>Exam Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 * {
     margin: 0;
     padding: 0;
@@ -20,10 +18,11 @@ body {
     background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
     color: white;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* ===== Navbar ===== */
-
+/* Navbar */
 .navbar {
     background: rgba(0,0,0,0.4);
     backdrop-filter: blur(10px);
@@ -31,200 +30,170 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 600;
 }
 
 .navbar h2 {
+    font-size: 18px;
     letter-spacing: 1px;
 }
 
-.user {
-    font-size: 14px;
-    opacity: 0.9;
+.logout-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
 }
 
-/* ===== Hero Section ===== */
+.logout-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
 
+/* Hero */
 .hero {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 60px;
+    padding: 0 20px;
 }
 
 .hero h1 {
-    font-size: 34px;
-    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
 .hero p {
-    opacity: 0.8;
+    opacity: 0.7;
+    font-size: 14px;
 }
 
-/* ===== Main Cards ===== */
-
-.container {
+/* Cards */
+.cards {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin: 60px auto;
+    gap: 30px;
+    margin: 50px auto;
     flex-wrap: wrap;
     width: 90%;
+    max-width: 900px;
 }
-
-/* Glass Card */
 
 .card {
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(12px);
     padding: 35px;
-    width: 420px;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    transition: 0.4s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-}
-
-.card h3 {
-    font-size: 22px;
-    margin-bottom: 20px;
-}
-
-/* Progress Bar */
-
-.progress {
-    background: rgba(255,255,255,0.2);
-    height: 10px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-}
-
-.progress-bar {
-    height: 100%;
-    border-radius: 20px;
-}
-
-.green { background: linear-gradient(90deg, #00c6ff, #0072ff); width: 84%; }
-.blue { background: linear-gradient(90deg, #56ab2f, #a8e063); width: 78%; }
-.purple { background: linear-gradient(90deg, #c471f5, #fa71cd); width: 90%; }
-
-/* Buttons */
-
-.btn {
-    margin-top: 20px;
-    padding: 12px 20px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: white;
+    flex: 1;
+    min-width: 250px;
+    max-width: 380px;
+    text-align: center;
     transition: 0.3s ease;
 }
 
-.btn:hover {
-    transform: scale(1.05);
+.card:hover {
+    transform: translateY(-6px);
 }
 
-/* Bottom Stats */
-
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 40px 0 60px;
-    flex-wrap: wrap;
+.card h3 {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.stat-card {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 18px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.stat-card h4 {
-    margin-bottom: 10px;
-    opacity: 0.8;
-}
-
-.stat-card span {
-    font-size: 28px;
+.card .value {
+    font-size: 42px;
     font-weight: 700;
 }
 
+.card .sub {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 6px;
+}
+
+.card.score .value { color: #00c6ff; }
+.card.warnings .value { color: #ff6b6b; }
+
+/* Start Button */
+.start-wrap {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.start-btn {
+    padding: 14px 50px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,114,255,0.4);
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+}
+
+.no-result {
+    opacity: 0.6;
+    font-size: 14px;
+    margin-top: 8px;
+}
 </style>
 </head>
 <body>
 
 <div class="navbar">
-    <h2>National Testing Dashboard</h2>
-    <div class="user">Hello, {{ session['user'] if session.get('user') else 'Student' }}</div>
+    <h2>Online Proctored Exam</h2>
+    <a href="/logout"><button class="logout-btn">Logout</button></a>
 </div>
 
 <div class="hero">
-    <h1>Welcome to Your Exam Dashboard</h1>
-    <p>Manage your exam progress and track your performance</p>
+    <h1>Welcome, {{ fullname }}! 👋</h1>
+    <p>AI-Based Proctored Exam System</p>
 </div>
 
-<div class="container">
+<div class="cards">
 
-    <!-- Exam Details -->
-    <div class="card">
-        <h3>Exam Details</h3>
-        <p>Total Questions: <b>150</b></p>
-        <p>Subjects: Physics, Chemistry, Mathematics</p>
-        <p>Level: JEE / CET</p>
-        <p>Total Marks: 600</p>
-
-        <form action="/exam">
-            <button class="btn">Start Examination</button>
-        </form>
+    <div class="card score">
+        <h3>Last Score</h3>
+        {% if result %}
+            <div class="value">{{ result.score }}</div>
+            <div class="sub">out of {{ result.total }}</div>
+        {% else %}
+            <div class="value">—</div>
+            <div class="sub">No attempt yet</div>
+        {% endif %}
     </div>
 
-    <!-- Previous Performance -->
-    <div class="card">
-        <h3>Previous Performance</h3>
-
-        <p>Physics: 42 / 50</p>
-        <div class="progress"><div class="progress-bar green"></div></div>
-
-        <p>Chemistry: 39 / 50</p>
-        <div class="progress"><div class="progress-bar blue"></div></div>
-
-        <p>Mathematics: 45 / 50</p>
-        <div class="progress"><div class="progress-bar purple"></div></div>
-
-        <p style="margin-top:15px;"><b>Total: 126 / 150</b></p>
-
-        <button class="btn">View Detailed Report</button>
+    <div class="card warnings">
+        <h3>Warnings Received</h3>
+        {% if result %}
+            <div class="value">{{ result.warnings }}</div>
+            <div class="sub">out of 5 max</div>
+        {% else %}
+            <div class="value">—</div>
+            <div class="sub">No attempt yet</div>
+        {% endif %}
     </div>
 
 </div>
 
-<!-- Bottom Stats -->
-<div class="stats">
-
-    <div class="stat-card">
-        <h4>Accuracy</h4>
-        <span>84%</span>
-    </div>
-
-    <div class="stat-card">
-        <h4>Exam Attempts</h4>
-        <span>3</span>
-    </div>
-
-    <div class="stat-card">
-        <h4>Time Spent</h4>
-        <span>6h 45m</span>
-    </div>
-
+<div class="start-wrap">
+    <a href="/exam"><button class="start-btn">Start Exam</button></a>
+    {% if not result %}
+        <p class="no-result">You haven't taken the exam yet.</p>
+    {% endif %}
 </div>
 
 </body>

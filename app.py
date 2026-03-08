@@ -1,5 +1,5 @@
-from flask import Flask, render_template, Response, request, redirect, url_for, session
-from proctor import generate_frames
+from flask import Flask, render_template, Response, request, redirect, url_for, session, jsonify
+from proctor import generate_frames, get_warning_count, increment_warning
 from questions import questions
 
 app = Flask(__name__)
@@ -7,6 +7,7 @@ app.secret_key = "supersecretkey"  # Needed for session
 
 # Temporary storage (replace with DB later)
 users = {}
+exam_results = {}  # stores last score + warnings per user
 
 # ---------------- HOME ----------------
 @app.route('/')
@@ -59,7 +60,11 @@ def dashboard():
     if "user" not in session:
         return redirect(url_for("home"))
 
-    return render_template("dashboard.html")
+    userid = session["user"]
+    fullname = users[userid]["fullname"]
+    result = exam_results.get(userid, None)
+
+    return render_template("dashboard.html", fullname=fullname, result=result)
 
 
 # ---------------- EXAM ----------------
@@ -78,16 +83,40 @@ def submit():
         return redirect(url_for("home"))
 
     score = 0
+    total_questions = 0
 
-    for i, q in enumerate(questions):
-        selected = request.form.get(f"q{i}")
-        if selected:
-            if selected == q["answer"]:
-                score += 4
-            else:
-                score -= 1
+    for subject, subject_questions in questions.items():
+        for i, q in enumerate(subject_questions):
+            selected = request.form.get(f"{subject}_{i}")
+            total_questions += 1
+            if selected:
+                if selected == q["answer"]:
+                    score += 4
+                else:
+                    score -= 1
 
-    return render_template("result.html", score=score, total=len(questions)*4)
+    # Save result for dashboard
+    exam_results[session["user"]] = {
+        "score": score,
+        "total": total_questions * 4,
+        "warnings": get_warning_count()
+    }
+
+    return render_template("result.html", score=score, total=total_questions * 4)
+
+
+# ---------------- TAB SWITCH ----------------
+@app.route('/tab_switch', methods=["POST"])
+def tab_switch():
+    from proctor import increment_warning
+    increment_warning("Tab_Switch")
+    return jsonify({"status": "ok"})
+
+
+# ---------------- WARNING STATUS ----------------
+@app.route('/warning_status')
+def warning_status():
+    return jsonify({"warning_count": get_warning_count()})
 
 
 # ---------------- CAMERA ----------------
